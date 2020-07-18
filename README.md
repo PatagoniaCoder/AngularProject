@@ -1,3 +1,12 @@
+Proyecto ingreso Computadoras
+
+Componentes:
+    • Header
+        ◦ Menu
+    • Ingresos
+    • Clientes
+    • Proveedores
+
 # IncomerecordApp
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 9.0.3.
