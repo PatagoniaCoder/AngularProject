@@ -1,1 +1,56 @@
-<p>customer-list works!</p>
+<div>
+  <mat-card>
+    <mat-card-header>
+      <mat-card-title class="textColorPrimary">
+        Customers
+        <mat-spinner [diameter]="20"></mat-spinner>
+        <button
+          mat-raised-button
+          color="primary"
+          matBadge="8"
+          matBadgePosition="before"
+          matBadgeColor="accent"
+        >
+          Add Customer
+        </button>
+      </mat-card-title>
+    </mat-card-header>
+    <mat-card-content class="container">
+      <mat-form-field appearance="outline">
+        <input matInput placeholder="Search" />
+      </mat-form-field>
+      <!--       <div class="row" *ngIf="errorMessage">
+        <div class="col-sm-12">
+          <p class="alert alert-danger">{{ errorMessage }}</p>
+        </div>
+      </div> -->
+      <table mat-table [dataSource]="dataSource" matSort>
+        <!-- Position -->
+        <ng-container matColumnDef="idCustomer">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>No.</th>
+          <td mat-cell *matCellDef="let element">{{ element.idCustomer }}</td>
+        </ng-container>
+
+        <!-- Name Column -->
+        <ng-container matColumnDef="firstName">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>First Name</th>
+          <td mat-cell *matCellDef="let element">{{ element.firstName }}</td>
+        </ng-container>
+
+        <!-- Last Name -->
+        <ng-container matColumnDef="lastName">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Last Name</th>
+          <td mat-cell *matCellDef="let element">{{ element.lastName }}</td>
+        </ng-container>
+
+        <!-- Cellphone -->
+        <ng-container matColumnDef="cellPhone">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Cellphone</th>
+          <td mat-cell *matCellDef="let element">{{ element.cellPhone }}</td>
+        </ng-container>
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+      </table>
+    </mat-card-content>
+  </mat-card>
+</div>

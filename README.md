@@ -1,11 +1,12 @@
 Proyecto ingreso Computadoras
 
 Componentes:
-    • Header
-        ◦ Menu
-    • Ingresos
-    • Clientes
-    • Proveedores
+• Header
+◦ Menu
+• Ingresos
+• Clientes
+• Proveedores
+ng g m **/** --module app --flat --routing
 
 # IncomerecordApp
 
