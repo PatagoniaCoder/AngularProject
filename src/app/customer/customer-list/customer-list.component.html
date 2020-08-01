@@ -5,22 +5,20 @@
         Customers
       </mat-card-title>
       <mat-spinner [diameter]="20"></mat-spinner>
-      <mat-card-actions>
-        <button mat-raised-button color="primary">
-          Add Customer
-        </button>
-      </mat-card-actions>
+      <button mat-raised-button color="primary" class="btnAddCustomer">
+        Add Customer
+      </button>
     </mat-card-header>
     <mat-card-content class="container">
       <mat-form-field appearance="outline">
         <input matInput placeholder="Search" />
       </mat-form-field>
-      <!--       <div class="row" *ngIf="errorMessage">
-        <div class="col-sm-12">
-          <p class="alert alert-danger">{{ errorMessage }}</p>
-        </div>
-      </div> -->
-      <table mat-table [dataSource]="dataSource" matSort>
+      <table
+        mat-table
+        [dataSource]="dataSource"
+        matSort
+        class="mat-elevation-z8"
+      >
         <!-- Position -->
         <ng-container matColumnDef="idCustomer">
           <th mat-header-cell *matHeaderCellDef mat-sort-header>No.</th>
@@ -29,7 +27,9 @@
 
         <!-- Name Column -->
         <ng-container matColumnDef="firstName">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header>First Name</th>
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>
+            First Name
+          </th>
           <td mat-cell *matCellDef="let element">{{ element.firstName }}</td>
         </ng-container>
 
