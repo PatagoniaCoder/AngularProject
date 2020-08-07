@@ -1,17 +1,15 @@
 import { async, ComponentFixture, TestBed } from "@angular/core/testing";
 import { CustomerListComponent } from "./customer-list.component";
 import { DOMHelper } from "./../../../testing/dom-helper";
-import { ShareModule } from "../../share/share.module";
+import { SharedModule } from "../../shared/shared.module";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { CustomerDto } from "src/app/services/customer.dto";
-import { MatTableDataSource } from "@angular/material/table";
 import { CustomerService } from "src/app/services/customer.service";
 
-fdescribe("CustomerListComponent", () => {
+describe("CustomerListComponent", () => {
   let component: CustomerListComponent;
   let fixture: ComponentFixture<CustomerListComponent>;
   let dh: DOMHelper<CustomerListComponent>;
-  let customerServiceMock;
   const customersListMock: CustomerDto[] = [
     {
       idCustomer: 1,
@@ -36,7 +34,7 @@ fdescribe("CustomerListComponent", () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [CustomerListComponent],
-      imports: [ShareModule, BrowserAnimationsModule],
+      imports: [SharedModule, BrowserAnimationsModule],
       providers: [CustomerService], //{ provide: CustomerService, useValue: customerServiceMock }],
     }).compileComponents();
   }));
