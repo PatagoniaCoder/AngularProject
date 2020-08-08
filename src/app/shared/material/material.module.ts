@@ -9,6 +9,7 @@ import { MatTableModule } from "@angular/material/table";
 import { MatProgressSpinnerModule } from "@angular/material/progress-spinner";
 import { MatIconModule } from "@angular/material/icon";
 import { MatSortModule } from "@angular/material/sort";
+import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 
 @NgModule({
   imports: [
@@ -22,6 +23,8 @@ import { MatSortModule } from "@angular/material/sort";
     MatProgressSpinnerModule,
     MatIconModule,
     MatSortModule,
+    FormsModule,
+    ReactiveFormsModule,
   ],
   exports: [
     MatButtonModule,
@@ -33,6 +36,8 @@ import { MatSortModule } from "@angular/material/sort";
     MatProgressSpinnerModule,
     MatIconModule,
     MatSortModule,
+    FormsModule,
+    ReactiveFormsModule,
   ],
 })
 export class MaterialModule {}

@@ -1,15 +1,18 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit } from "@angular/core";
+import { CustomerService } from "../../services/customer.service";
 
 @Component({
-  selector: 'app-customer-form',
-  templateUrl: './customer-form.component.html',
-  styleUrls: ['./customer-form.component.scss']
+  selector: "app-customer-form",
+  templateUrl: "./customer-form.component.html",
+  styleUrls: ["./customer-form.component.scss"],
 })
 export class CustomerFormComponent implements OnInit {
+  //TODO aviriguar porque tiene que ser publico
+  constructor(public custumerService: CustomerService) {}
 
-  constructor() { }
+  ngOnInit(): void {}
 
-  ngOnInit(): void {
+  onSubmit() {
+    console.log("Hizo click");
   }
-
 }

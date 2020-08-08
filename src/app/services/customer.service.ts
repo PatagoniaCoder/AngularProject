@@ -2,6 +2,7 @@ import { Injectable } from "@angular/core";
 import { Observable } from "rxjs/internal/Observable";
 import { CustomerDto } from "./customer.dto";
 import { of } from "rxjs";
+import { FormGroup, FormControl, Validators } from "@angular/forms";
 
 const customersListMock: CustomerDto[] = [
   {
@@ -26,6 +27,11 @@ const customersListMock: CustomerDto[] = [
 @Injectable()
 export class CustomerService {
   constructor() {}
+  form: FormGroup = new FormGroup({
+    firstName: new FormControl("", Validators.required),
+    lastName: new FormControl("", Validators.required),
+    cellPhone: new FormControl("", Validators.required),
+  });
   getAll(): Observable<CustomerDto[]> {
     return of(customersListMock);
   }
