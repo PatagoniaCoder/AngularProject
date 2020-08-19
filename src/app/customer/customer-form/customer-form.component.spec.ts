@@ -6,11 +6,19 @@ import { DOMHelper } from "../../../testing/dom-helper";
 import { CustomerService } from "../../services/customer.service";
 import { RouterTestingModule } from "@angular/router/testing";
 import { Router } from "@angular/router";
+import { CustomerDto } from "src/app/services/customer.dto";
 
 describe("CustomerFormComponent", () => {
   let component: CustomerFormComponent;
   let fixture: ComponentFixture<CustomerFormComponent>;
   let dh: DOMHelper<CustomerFormComponent>;
+  let router: Router;
+  const mockCustomer: CustomerDto = {
+    idCustomer: 4,
+    firstName: "New Customer FirstName",
+    lastName: "New Customer LastName",
+    cellPhone: "0123456789",
+  };
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
@@ -23,6 +31,8 @@ describe("CustomerFormComponent", () => {
     fixture = TestBed.createComponent(CustomerFormComponent);
     component = fixture.componentInstance;
     dh = new DOMHelper(fixture);
+    router = TestBed.get(Router);
+    router.initialNavigation();
     fixture.detectChanges();
   });
 
@@ -47,17 +57,57 @@ describe("CustomerFormComponent", () => {
   });
   it("should call method onSubmit", () => {
     spyOn(component, "onSubmit");
+
+    component.form.firstName.setValue("a");
+    component.form.lastName.setValue("b");
+    component.form.cellPhone.setValue("c");
+    fixture.detectChanges();
     dh.clickButton("save SAVE ");
+    fixture.detectChanges();
     expect(component.onSubmit).toHaveBeenCalledTimes(1);
   });
-  it('should return to "Customer-List"', () => {
+  it('should return to "Customer-List" when push Cancel', async () => {
     const router: Router = TestBed.get(Router);
     spyOn(router, "navigateByUrl");
     dh.clickButton("cancel CANCEL ");
     fixture.detectChanges();
-    expect(router.navigateByUrl).toHaveBeenCalledWith(
-      router.createUrlTree(["/customer"]),
-      { skipLocationChange: false, replaceUrl: false, state: undefined }
-    );
+    await fixture.whenStable().then(() => {
+      expect(router.navigateByUrl).toHaveBeenCalledWith(
+        router.createUrlTree(["/customer"]),
+        { skipLocationChange: false, replaceUrl: false, state: undefined }
+      );
+    });
+  });
+  it("should add new Customer", () => {
+    let firstname = component.form.firstName;
+    firstname.setValue(mockCustomer.firstName);
+
+    let lastName = component.form.lastName;
+    lastName.setValue(mockCustomer.lastName);
+
+    let cellPhone = component.form.cellPhone;
+    cellPhone.setValue(mockCustomer.cellPhone);
+    fixture.detectChanges();
+
+    dh.clickButton("save SAVE ");
+    fixture.detectChanges();
+    component.custumerService.getAll().subscribe((result) => {
+      expect(result.length).toBeGreaterThan(3);
+    });
+  });
+  it('should return to "Customer-List" when push Save', async () => {
+    spyOn(router, "navigateByUrl");
+    component.form.firstName.setValue("a");
+    component.form.lastName.setValue("b");
+    component.form.cellPhone.setValue("c");
+    fixture.detectChanges();
+    dh.clickButton("save SAVE ");
+    fixture.detectChanges();
+    await fixture.whenStable().then(() => {
+      expect(router.navigateByUrl).toHaveBeenCalledWith(
+        router.createUrlTree(["/customer"]),
+        { skipLocationChange: false }
+      );
+    });
   });
 });

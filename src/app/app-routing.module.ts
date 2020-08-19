@@ -3,13 +3,13 @@ import { Routes, RouterModule } from "@angular/router";
 import {} from "./customer/customer.module";
 export const routes: Routes = [
   {
+    path: "customer",
+    loadChildren: "./customer/customer.module#CustomerModule",
+  },
+  {
     path: "",
     redirectTo: "/",
     pathMatch: "full",
-  },
-  {
-    path: "customer",
-    loadChildren: "./customer/customer.module#CustomerModule",
   },
   { path: "**", redirectTo: "/" },
 ];

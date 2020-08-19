@@ -1,4 +1,7 @@
-<form [formGroup]="custumerService.form" (ngSubmit)="onSubmit()">
+<form
+  [formGroup]="custumerService.form"
+  (ngSubmit)="onSubmit(custumerService.form.value)"
+>
   <mat-card>
     <mat-card-header>
       <mat-card-title color="primary">
@@ -8,22 +11,43 @@
     <mat-card-content>
       <mat-form-field appearance="outline">
         <mat-label>First Name</mat-label>
-        <input matInput placeholder="First Name" required />
+        <input
+          formControlName="firstName"
+          matInput
+          placeholder="First Name"
+          required
+        />
         <mat-hint>Ej: put your name here!</mat-hint>
       </mat-form-field>
       <mat-form-field appearance="outline">
         <mat-label>Last Name</mat-label>
-        <input matInput placeholder="Last Name" required />
+        <input
+          formControlName="lastName"
+          matInput
+          placeholder="Last Name"
+          required
+        />
         <mat-hint>Ej: put your last name here!</mat-hint>
       </mat-form-field>
       <mat-form-field appearance="outline">
         <mat-label>Cell Phone</mat-label>
-        <input matInput placeholder="CellPhone" required />
+        <input
+          formControlName="cellPhone"
+          matInput
+          placeholder="CellPhone"
+          required
+        />
         <mat-hint>Ej: put your cell phone here!</mat-hint>
       </mat-form-field>
     </mat-card-content>
     <mat-card-actions class="actionBtnsContainer">
-      <button mat-raised-button color="primary" matTooltip="Save" type="submit">
+      <button
+        mat-raised-button
+        [disabled]="custumerService.form.invalid"
+        color="primary"
+        matTooltip="Save"
+        type="submit"
+      >
         <mat-icon>save</mat-icon>
         SAVE
       </button>

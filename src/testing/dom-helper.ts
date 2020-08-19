@@ -37,6 +37,20 @@ export class DOMHelper<T> {
       }
     });
   }
+  clickMatButton(buttonText: string, matTag: string) {
+    this.findAll(matTag).forEach((button) => {
+      const buttonElement: HTMLButtonElement = button.nativeNode;
+      if (buttonElement.innerText === buttonText) {
+        console.log("boton: ", buttonElement);
+        buttonElement.click();
+      }
+    });
+  }
+  findAllWithText(tagName: string, text: string) {
+    return this.findAll(tagName).filter(
+      (element) => element.nativeNode.innerText === text
+    );
+  }
   findAll(tagName: string) {
     return this.fixture.debugElement.queryAll(By.css(tagName));
   }

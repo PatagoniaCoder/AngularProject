@@ -14,21 +14,21 @@ const routes: Routes = [
         path: "list",
         component: CustomerListComponent,
         data: {
-          title: "Listado",
+          title: "Lists",
         },
       },
       {
         path: "create",
         component: CustomerFormComponent,
         data: {
-          title: "Crear",
+          title: "Create",
         },
       },
       {
         path: ":id",
         component: CustomerFormComponent,
         data: {
-          title: "Actualizar",
+          title: "Update",
         },
       },
       {

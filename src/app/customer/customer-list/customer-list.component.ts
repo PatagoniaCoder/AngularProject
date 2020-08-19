@@ -3,6 +3,7 @@ import { MatSort } from "@angular/material/sort";
 import { CustomerDto } from "src/app/services/customer.dto";
 import { MatTableDataSource } from "@angular/material/table";
 import { CustomerService } from "../../services/customer.service";
+import { Router } from "@angular/router";
 
 @Component({
   selector: "app-customer-list",
@@ -10,12 +11,16 @@ import { CustomerService } from "../../services/customer.service";
   styleUrls: ["./customer-list.component.scss"],
 })
 export class CustomerListComponent implements OnInit {
-  constructor(private customerService: CustomerService) {}
+  constructor(
+    private customerService: CustomerService,
+    private route: Router
+  ) {}
   displayedColumns: string[] = [
     "idCustomer",
     "firstName",
     "lastName",
     "cellPhone",
+    "actions",
   ];
   dataSource = new MatTableDataSource<CustomerDto>();
 
@@ -30,5 +35,16 @@ export class CustomerListComponent implements OnInit {
       this.dataSource = new MatTableDataSource(c);
       this.dataSource.sort = this.sort;
     });
+  }
+  deleteCustomer(element: CustomerDto) {
+    this.customerService.delete(element.idCustomer).subscribe((result) => {
+      if (result) {
+        console.log(result);
+        this.ngOnInit();
+      }
+    });
+  }
+  updateCustomer(element: CustomerDto) {
+    this.route.navigate([`/customer/${element.idCustomer}`]);
   }
 }
