@@ -41,7 +41,6 @@ export class DOMHelper<T> {
     this.findAll(matTag).forEach((button) => {
       const buttonElement: HTMLButtonElement = button.nativeNode;
       if (buttonElement.innerText === buttonText) {
-        console.log("boton: ", buttonElement);
         buttonElement.click();
       }
     });

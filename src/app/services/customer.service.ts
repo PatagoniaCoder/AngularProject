@@ -65,7 +65,6 @@ export class CustomerService {
     return this.customersListMock.find((x) => x.idCustomer === body.idCustomer);
   }
   delete(id: number): Observable<CustomerDto[]> {
-    console.log("para eliminar", id);
     this.customersListMock = this.customersListMock.filter(
       (x) => x.idCustomer !== id
     );

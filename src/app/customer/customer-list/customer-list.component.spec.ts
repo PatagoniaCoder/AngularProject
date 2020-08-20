@@ -8,7 +8,6 @@ import { CustomerService } from "src/app/services/customer.service";
 import { Router } from "@angular/router";
 import { RouterTestingModule } from "@angular/router/testing";
 import { of } from "rxjs/internal/observable/of";
-import { Location } from "@angular/common";
 
 describe("CustomerListComponent", () => {
   let component: CustomerListComponent;
