@@ -20,8 +20,8 @@ describe("CustomerFormComponent", () => {
     cellPhone: "0123456789",
   };
 
-  beforeEach(async(() => {
-    TestBed.configureTestingModule({
+  beforeEach(async(async () => {
+    await TestBed.configureTestingModule({
       imports: [SharedModule, BrowserAnimationsModule, RouterTestingModule],
       declarations: [CustomerFormComponent],
       providers: [CustomerService],

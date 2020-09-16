@@ -36,14 +36,14 @@ describe("CustomerListComponent", () => {
     },
   ];
 
-  beforeEach(() => {
+  beforeEach(async () => {
     customerServiceMock = jasmine.createSpyObj("CustomerService", [
       "getAll",
       "subscribe",
       "delete",
     ]);
     customerServiceMock.getAll.and.returnValue(of(customersListMock));
-    TestBed.configureTestingModule({
+    await TestBed.configureTestingModule({
       imports: [SharedModule, BrowserAnimationsModule, RouterTestingModule],
       declarations: [CustomerListComponent],
       providers: [{ provide: CustomerService, useValue: customerServiceMock }],
