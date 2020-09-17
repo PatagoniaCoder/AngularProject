@@ -54,7 +54,7 @@ describe("CustomerListComponent", () => {
     fixture = TestBed.createComponent(CustomerListComponent);
     component = fixture.componentInstance;
     dh = new DOMHelper(fixture);
-    router = TestBed.get(Router);
+    router = TestBed.inject(Router);
     fixture.detectChanges();
   });
 

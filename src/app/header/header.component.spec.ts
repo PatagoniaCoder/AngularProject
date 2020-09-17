@@ -13,6 +13,7 @@ import { Router } from "@angular/router";
 import { CUSTOM_ELEMENTS_SCHEMA } from "@angular/core";
 import { Location } from "@angular/common";
 import { CustomerListComponent } from "../customer/customer-list/customer-list.component";
+import { EntriesListComponent } from "../entries/entries-list/entries-list.component";
 
 describe("HeaderComponent", () => {
   let component: HeaderComponent;
@@ -35,6 +36,10 @@ describe("HeaderComponent", () => {
             path: "customer",
             component: CustomerListComponent,
           },
+          {
+            path: "entries",
+            component: EntriesListComponent,
+          },
         ]),
       ],
       schemas: [CUSTOM_ELEMENTS_SCHEMA],
@@ -44,18 +49,18 @@ describe("HeaderComponent", () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(HeaderComponent);
     component = fixture.componentInstance;
-    router = TestBed.get(Router);
+    router = TestBed.inject(Router);
     dh = new DOMHelper(fixture);
-    location = TestBed.get(Location);
+    location = TestBed.inject(Location);
     fixture.detectChanges();
   });
 
   it("should create", () => {
     expect(component).toBeTruthy();
   });
-  it("should have 3 buttons", () => {
+  it("should have 4 buttons", () => {
     const btns = dh.count("button");
-    expect(btns).toBe(3);
+    expect(btns).toBe(4);
   });
   it("should navigate to Home", fakeAsync(() => {
     const btns = dh.findAll("button");
@@ -73,6 +78,15 @@ describe("HeaderComponent", () => {
       flush();
       fixture.detectChanges();
       expect(location.path()).toBe("/customer");
+    });
+  }));
+  it("should navigate to Entries List", fakeAsync(() => {
+    const btns = dh.findAll("button");
+    fixture.ngZone.run(() => {
+      btns[2].triggerEventHandler("click", {});
+      flush();
+      fixture.detectChanges();
+      expect(location.path()).toBe("/entries");
     });
   }));
   it("should navigate to Login", () => {});

@@ -31,7 +31,7 @@ describe("CustomerFormComponent", () => {
     fixture = TestBed.createComponent(CustomerFormComponent);
     component = fixture.componentInstance;
     dh = new DOMHelper(fixture);
-    router = TestBed.get(Router);
+    router = TestBed.inject(Router);
     router.initialNavigation();
     fixture.detectChanges();
   });
@@ -67,7 +67,7 @@ describe("CustomerFormComponent", () => {
     expect(component.onSubmit).toHaveBeenCalledTimes(1);
   });
   it('should return to "Customer-List" when push Cancel', async () => {
-    const router: Router = TestBed.get(Router);
+    const router: Router = TestBed.inject(Router);
     spyOn(router, "navigateByUrl");
     dh.clickButton("cancel CANCEL ");
     fixture.detectChanges();
