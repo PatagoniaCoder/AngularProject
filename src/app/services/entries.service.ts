@@ -1,4 +1,5 @@
 import { Injectable } from "@angular/core";
+import { FormControl, FormGroup, Validators } from "@angular/forms";
 import { Observable } from "rxjs/internal/Observable";
 import { of } from "rxjs/internal/observable/of";
 import { EntriesDto } from "./entriesDTO";
@@ -33,6 +34,15 @@ const entriesListMock: EntriesDto[] = [
 @Injectable()
 export class EntriesService {
   constructor() {}
+  from: FormGroup = new FormGroup({
+    idCustomer: new FormControl(""),
+    firstName: new FormControl("", Validators.required),
+    lastName: new FormControl("", Validators.required),
+    cellPhone: new FormControl("", Validators.required),
+    type: new FormControl(""),
+    issue: new FormControl(""),
+    priority: new FormControl(""),
+  });
   delete(element: number) {
     throw new Error("Method not implemented.");
   }

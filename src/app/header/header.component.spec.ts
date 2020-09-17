@@ -89,6 +89,7 @@ describe("HeaderComponent", () => {
       expect(location.path()).toBe("/entries");
     });
   }));
+  /* TODO  
   it("should navigate to Login", () => {});
-  it("should navigate to Register", () => {});
+  it("should navigate to Register", () => {}); */
 });

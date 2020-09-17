@@ -10,7 +10,7 @@ import { DOMHelper } from "../../../testing/dom-helper";
 
 import { EntriesListComponent } from "./entries-list.component";
 
-fdescribe("EntriesListComponent", () => {
+describe("EntriesListComponent", () => {
   let component: EntriesListComponent;
   let fixture: ComponentFixture<EntriesListComponent>;
   let dh: DOMHelper<EntriesListComponent>;
