@@ -56,12 +56,12 @@ export class CustomerFormComponent implements OnInit {
           .update(newCustomer.idCustomer, newCustomer)
           .subscribe((result) => {
             if (result) {
-              this.router.navigate(["customer"]);
+              this.router.navigate([`/customer/${result.idCustomer}`]);
             }
           });
       } else {
         this.custumerService.create(newCustomer);
-        this.router.navigate(["customer"]);
+        this.router.navigate(["/customer"]);
       }
     } else {
       console.log(this.custumerService.form.valid);
