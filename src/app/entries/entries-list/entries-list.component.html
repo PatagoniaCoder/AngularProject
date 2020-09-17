@@ -1,1 +1,90 @@
-<p>entries-list works!</p>
+<div>
+  <mat-card>
+    <mat-card-header class="card-header">
+      <mat-card-title>Entries</mat-card-title>
+      <mat-spinner [diameter]="20"></mat-spinner>
+      <button
+        mat-raised-button
+        color="primary"
+        class="btnAddEntry"
+        [routerLink]="['/entries/create']"
+      >
+        Add Entry
+      </button>
+    </mat-card-header>
+    <mat-card-content class="container">
+      <mat-form-field appearance="outline">
+        <input matInput placeholder="Search" />
+      </mat-form-field>
+      <table
+        mat-table
+        [dataSource]="dataSource"
+        matSort
+        class="mat-elevation-z8"
+      >
+        <!-- Position -->
+        <ng-container matColumnDef="idEntry">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>No.</th>
+          <td mat-cell *matCellDef="let element">{{ element.idEntry }}</td>
+        </ng-container>
+        <!-- Customer -->
+        <ng-container matColumnDef="idCustomer">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Customer</th>
+          <td mat-cell *matCellDef="let element">{{ element.idCustomer }}</td>
+        </ng-container>
+        <!-- Type -->
+        <ng-container matColumnDef="idType">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Type</th>
+          <td mat-cell *matCellDef="let element">{{ element.idType }}</td>
+        </ng-container>
+        <!-- Date Incoming -->
+        <ng-container matColumnDef="dateInco">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>
+            Date Incoming
+          </th>
+          <td mat-cell *matCellDef="let element">
+            {{ element.dateInco | date }}
+          </td>
+        </ng-container>
+        <!-- Date Estimated Exit -->
+        <ng-container matColumnDef="dateEE">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>
+            Date Estimated Exit
+          </th>
+          <td mat-cell *matCellDef="let element">
+            {{ element.dateEE | date }}
+          </td>
+        </ng-container>
+        <!-- Priority -->
+        <ng-container matColumnDef="priority">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Priority</th>
+          <td mat-cell *matCellDef="let element">{{ element.priority }}</td>
+        </ng-container>
+        <!--Actions-->
+        <ng-container matColumnDef="actions">
+          <th mat-header-cell *matHeaderCellDef>Actions</th>
+          <td mat-cell *matCellDef="let element">
+            <button
+              mat-icon-button
+              color="primary"
+              matTooltip="Update Entry"
+              (click)="updateEntry(element)"
+            >
+              <mat-icon>edit</mat-icon>
+            </button>
+            <button
+              mat-icon-button
+              color="accent"
+              matTooltip="Delete Entry"
+              (click)="deleteEntry(element)"
+            >
+              <mat-icon>delete</mat-icon>
+            </button>
+          </td>
+        </ng-container>
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+      </table>
+    </mat-card-content>
+  </mat-card>
+</div>
