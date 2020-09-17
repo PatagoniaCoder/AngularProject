@@ -1,7 +1,6 @@
 import {
   ComponentFixture,
   TestBed,
-  tick,
   fakeAsync,
   flush,
 } from "@angular/core/testing";
@@ -10,14 +9,12 @@ import { HeaderComponent } from "./header.component";
 import { SharedModule } from "../shared/shared.module";
 import { DOMHelper } from "src/testing/dom-helper";
 import { RouterTestingModule } from "@angular/router/testing";
-import { Router, Routes } from "@angular/router";
+import { Router } from "@angular/router";
 import { CUSTOM_ELEMENTS_SCHEMA } from "@angular/core";
 import { Location } from "@angular/common";
-import { CustomerModule } from "../customer/customer.module";
-import { CustomerRoutingModule } from "../customer/customer-routing.module";
 import { CustomerListComponent } from "../customer/customer-list/customer-list.component";
 
-fdescribe("HeaderComponent", () => {
+describe("HeaderComponent", () => {
   let component: HeaderComponent;
   let fixture: ComponentFixture<HeaderComponent>;
   let dh: DOMHelper<HeaderComponent>;
@@ -38,7 +35,6 @@ fdescribe("HeaderComponent", () => {
             path: "customer",
             component: CustomerListComponent,
           },
-          { path: "supplier", component: CustomerListComponent },
         ]),
       ],
       schemas: [CUSTOM_ELEMENTS_SCHEMA],
@@ -57,11 +53,11 @@ fdescribe("HeaderComponent", () => {
   it("should create", () => {
     expect(component).toBeTruthy();
   });
-  it("should have 4 buttons", () => {
+  it("should have 3 buttons", () => {
     const btns = dh.count("button");
-    expect(btns).toBe(4);
+    expect(btns).toBe(3);
   });
-  fit("should navigate to Home", fakeAsync(() => {
+  it("should navigate to Home", fakeAsync(() => {
     const btns = dh.findAll("button");
     fixture.ngZone.run(() => {
       btns[0].triggerEventHandler("click", {});
@@ -70,22 +66,13 @@ fdescribe("HeaderComponent", () => {
       expect(location.path()).toBe("/");
     });
   }));
-  fit("should navigate to Customer List", fakeAsync(() => {
+  it("should navigate to Customer List", fakeAsync(() => {
     const btns = dh.findAll("button");
     fixture.ngZone.run(() => {
       btns[1].triggerEventHandler("click", {});
       flush();
       fixture.detectChanges();
       expect(location.path()).toBe("/customer");
-    });
-  }));
-  fit("should navigate to Supplier List", fakeAsync(() => {
-    const btns = dh.findAll("button");
-    fixture.ngZone.run(() => {
-      btns[2].triggerEventHandler("click", {});
-      flush();
-      fixture.detectChanges();
-      expect(location.path()).toBe("/supplier");
     });
   }));
   it("should navigate to Login", () => {});
