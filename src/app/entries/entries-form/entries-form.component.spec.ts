@@ -5,28 +5,25 @@ import { RouterTestingModule } from "@angular/router/testing";
 import { EntriesService } from "src/app/services/entries.service";
 import { SharedModule } from "src/app/shared/shared.module";
 import { DOMHelper } from "src/testing/dom-helper";
-
 import { EntriesFormComponent } from "./entries-form.component";
 
-fdescribe("EntriesFormComponent", () => {
+describe("EntriesFormComponent", () => {
   let component: EntriesFormComponent;
   let fixture: ComponentFixture<EntriesFormComponent>;
   let dh: DOMHelper<EntriesFormComponent>;
   let router: Router;
-  let entriesServiceMock: any;
-  const mockCustomer = {
+  const mockEntries = {
     idCustomer: 4,
-    firstName: "New Customer FirstName",
-    lastName: "New Customer LastName",
+    firstName: "New Entries FirstName",
+    lastName: "New Entries LastName",
     cellPhone: "0123456789",
   };
 
   beforeEach(async(() => {
-    entriesServiceMock = jasmine.createSpyObj(EntriesService, ["getAll"]);
     TestBed.configureTestingModule({
       declarations: [EntriesFormComponent],
       imports: [RouterTestingModule, SharedModule, BrowserAnimationsModule],
-      providers: [{ provide: EntriesService, useValue: entriesServiceMock }],
+      providers: [EntriesService],
     }).compileComponents();
   }));
 
@@ -35,80 +32,83 @@ fdescribe("EntriesFormComponent", () => {
     component = fixture.componentInstance;
     dh = new DOMHelper(fixture);
     router = TestBed.inject(Router);
-
+    router.initialNavigation();
     fixture.detectChanges();
   });
 
   it("should create", () => {
     expect(component).toBeTruthy();
   });
-  it("should hava 5 inputs", () => {
+  it("should have 5 inputs", () => {
     const inputs = dh.count("input");
     expect(inputs).toBe(5);
   });
-  xit("should have at least 2 buttons", () => {
+  it("should have at least one TextArea", () => {
+    const textarea = dh.count("textarea");
+    expect(textarea).toBeGreaterThan(1);
+  });
+  it("should have at least 4 buttons", () => {
     const btns = dh.count("button");
-    expect(btns).toBe(2);
+    expect(btns).toBeGreaterThan(4);
   });
-  xit('should have a "Save" button', () => {
-    const btn = dh.countText("button", "save SAVE ");
+  it("should have a 'Save' button", () => {
+    const btn = dh.countText("button", "saveSAVE ");
     expect(btn).toBe(1);
   });
-  xit('should have a "Cancel" button', () => {
-    const btn = dh.countText("button", "cancel CANCEL ");
+  it("should have a 'Cancel' button", () => {
+    const btn = dh.countText("button", "cancelCANCEL ");
     expect(btn).toBe(1);
   });
-  xit("should call method onSubmit", () => {
+  it("should call method onSubmit", () => {
     spyOn(component, "onSubmit");
-
     component.form.firstName.setValue("a");
     component.form.lastName.setValue("b");
     component.form.cellPhone.setValue("c");
     fixture.detectChanges();
-    dh.clickButton("save SAVE ");
+    dh.clickButton("saveSAVE ");
     fixture.detectChanges();
     expect(component.onSubmit).toHaveBeenCalledTimes(1);
   });
-  xit('should return to "Customer-List" when push Cancel', async () => {
+  it("should return to 'Entries-List' when push Cancel", async () => {
     const router: Router = TestBed.inject(Router);
     spyOn(router, "navigateByUrl");
-    dh.clickButton("cancel CANCEL ");
+    dh.clickButton("cancelCANCEL ");
     fixture.detectChanges();
     await fixture.whenStable().then(() => {
       expect(router.navigateByUrl).toHaveBeenCalledWith(
-        router.createUrlTree(["/customer"]),
+        router.createUrlTree(["/entries"]),
         { skipLocationChange: false, replaceUrl: false, state: undefined }
       );
     });
   });
-  xit("should add new Customer", () => {
+  it("should add new Entries", () => {
     let firstname = component.form.firstName;
-    firstname.setValue(mockCustomer.firstName);
+    firstname.setValue(mockEntries.firstName);
 
     let lastName = component.form.lastName;
-    lastName.setValue(mockCustomer.lastName);
+    lastName.setValue(mockEntries.lastName);
 
     let cellPhone = component.form.cellPhone;
-    cellPhone.setValue(mockCustomer.cellPhone);
+    cellPhone.setValue(mockEntries.cellPhone);
     fixture.detectChanges();
 
-    dh.clickButton("save SAVE ");
+    dh.clickButton("saveSAVE ");
     fixture.detectChanges();
     component.entriesService.getAll().subscribe((result) => {
-      expect(result.length).toBeGreaterThan(3);
+      expect(result.length).toBeGreaterThanOrEqual(3);
     });
   });
-  xit('should return to "Customer-List" when push Save', async () => {
+  it("should return to 'Entries-List' when push Save", async () => {
     spyOn(router, "navigateByUrl");
     component.form.firstName.setValue("a");
     component.form.lastName.setValue("b");
     component.form.cellPhone.setValue("c");
     fixture.detectChanges();
-    dh.clickButton("save SAVE ");
+    dh.clickButton("saveSAVE ");
     fixture.detectChanges();
     await fixture.whenStable().then(() => {
       expect(router.navigateByUrl).toHaveBeenCalledWith(
-        router.createUrlTree(["/customer"]),
+        router.createUrlTree(["/entries"]),
         { skipLocationChange: false }
       );
     });

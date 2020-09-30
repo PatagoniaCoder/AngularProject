@@ -34,7 +34,7 @@ const entriesListMock: EntriesDto[] = [
 @Injectable()
 export class EntriesService {
   constructor() {}
-  from: FormGroup = new FormGroup({
+  form: FormGroup = new FormGroup({
     idCustomer: new FormControl(""),
     firstName: new FormControl("", Validators.required),
     lastName: new FormControl("", Validators.required),
@@ -43,6 +43,20 @@ export class EntriesService {
     issue: new FormControl(""),
     priority: new FormControl(""),
   });
+  initializeFormGroup() {
+    this.form.setValue({
+      idCustomer: null,
+      firstName: "",
+      lastName: "",
+      cellPhone: "",
+      type: null,
+      issue: null,
+      priority: "",
+    });
+  }
+  getOne(id: any): Observable<EntriesDto> {
+    throw new Error("Method not implemented.");
+  }
   delete(element: number) {
     throw new Error("Method not implemented.");
   }

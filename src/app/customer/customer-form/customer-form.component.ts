@@ -20,10 +20,10 @@ export class CustomerFormComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.atBegining();
+    this.atBeginning();
   }
 
-  atBegining() {
+  atBeginning() {
     this.activatedRoute.params.subscribe((params) => {
       if (params.id) {
         this.custumerService.getOne(params.id).subscribe((customer) => {
