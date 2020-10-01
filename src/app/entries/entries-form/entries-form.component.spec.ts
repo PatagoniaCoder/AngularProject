@@ -7,7 +7,7 @@ import { SharedModule } from "src/app/shared/shared.module";
 import { DOMHelper } from "src/testing/dom-helper";
 import { EntriesFormComponent } from "./entries-form.component";
 
-describe("EntriesFormComponent", () => {
+fdescribe("EntriesFormComponent", () => {
   let component: EntriesFormComponent;
   let fixture: ComponentFixture<EntriesFormComponent>;
   let dh: DOMHelper<EntriesFormComponent>;
@@ -112,5 +112,25 @@ describe("EntriesFormComponent", () => {
         { skipLocationChange: false }
       );
     });
+  });
+  it("should call the Incoming method", () => {
+    spyOn(component, "addIncoming");
+    dh.clickMatButton("ADD", "button");
+    fixture.detectChanges();
+    expect(component.addIncoming).toHaveBeenCalledTimes(1);
+  });
+  it("should add a Incoming", () => {
+    let incoming = component.form.incoming;
+    incoming.setValue({
+      type: "algo aca",
+      issue: "otra cosa",
+      priority: "baja",
+    });
+    fixture.detectChanges();
+    dh.clickMatButton("ADD", "button");
+    fixture.detectChanges();
+    const table = dh.findAll("table");
+    const rows = table[0].nativeElement.tBodies[0].rows.length;
+    expect(rows).toBe(3);
   });
 });

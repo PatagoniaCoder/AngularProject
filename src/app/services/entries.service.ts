@@ -39,19 +39,20 @@ export class EntriesService {
     firstName: new FormControl("", Validators.required),
     lastName: new FormControl("", Validators.required),
     cellPhone: new FormControl("", Validators.required),
-    type: new FormControl(""),
-    issue: new FormControl(""),
-    priority: new FormControl(""),
+    incoming: new FormGroup({
+      type: new FormControl(""),
+      issue: new FormControl(""),
+      priority: new FormControl(""),
+    }),
   });
+
   initializeFormGroup() {
     this.form.setValue({
       idCustomer: null,
       firstName: "",
       lastName: "",
       cellPhone: "",
-      type: null,
-      issue: null,
-      priority: "",
+      incoming: { type: "", issue: "", priority: "" },
     });
   }
   getOne(id: any): Observable<EntriesDto> {
