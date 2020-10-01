@@ -39,10 +39,8 @@ export class DOMHelper<T> {
   }
   clickMatButton(buttonText: string, matTag: string) {
     this.findAll(matTag).forEach((button) => {
-      debugger;
       const buttonElement: HTMLButtonElement = button.nativeNode;
       if (buttonElement.innerText === buttonText) {
-        console.log("uno");
         button.triggerEventHandler("click", {});
       }
     });
