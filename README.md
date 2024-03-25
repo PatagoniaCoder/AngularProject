@@ -1,16 +1,22 @@
-Proyecto ingreso Computadoras
-
-Componentes:
-• Header
-◦ Menu
-• Ingresos
-• Clientes
-• Proveedores
-ng g m **/** --module app --flat --routing
-
-# IncomerecordApp
-
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 9.0.3.
+
+# Income Record App - Alpha Version 😅
+Se trata de una sencilla aplicación para la gestión de la recepción de equipos informáticos, donde se describen incidencias y se asignan prioridades, todo ello vinculado a un cliente concreto. Esta aplicación no depende de una base de datos para almacenar información, ya que el objetivo del proyecto es implementar la metodología Test Driven Development (TDD) específicamente para los componentes visuales.
+
+It's a straightforward application for handling computer equipment reception, where issues are described and priorities are assigned, all linked to a specific client. This application doesn't rely on a database to store information, as the project's goal is to implement Test Driven Development (TDD) methodology specifically for the visual components.
+
+## Frameworks and Configs
+
+Framework test [Jasmine](https://jasmine.github.io/)
+
+Web Test Runner [Karma](https://github.com/dfederm/karma-jasmine-html-reporter) with `karma-firefox-launcher`
+
+## Installation 
+npm install
+
+or
+
+yarn install
 
 ## Development server
 
