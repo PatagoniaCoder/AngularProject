@@ -7,7 +7,7 @@ import { SharedModule } from "src/app/shared/shared.module";
 import { DOMHelper } from "src/testing/dom-helper";
 import { EntriesFormComponent } from "./entries-form.component";
 
-fdescribe("EntriesFormComponent", () => {
+describe("EntriesFormComponent", () => {
   let component: EntriesFormComponent;
   let fixture: ComponentFixture<EntriesFormComponent>;
   let dh: DOMHelper<EntriesFormComponent>;
