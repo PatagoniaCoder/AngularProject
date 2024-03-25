@@ -1,57 +1,63 @@
-import { ComponentFixture, TestBed } from "@angular/core/testing";
-import { CustomerListComponent } from "./customer-list.component";
-import { DOMHelper } from "./../../../testing/dom-helper";
-import { SharedModule } from "../../shared/shared.module";
+import { async, ComponentFixture, TestBed } from "@angular/core/testing";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
-import { CustomerDto } from "src/app/services/customer.dto";
-import { CustomerService } from "src/app/services/customer.service";
 import { Router } from "@angular/router";
 import { RouterTestingModule } from "@angular/router/testing";
-import { of } from "rxjs/internal/observable/of";
+import { of } from "rxjs";
+import { EntriesService } from "src/app/services/entries.service";
+import { EntriesDto } from "src/app/services/entriesDTO";
+import { SharedModule } from "src/app/shared/shared.module";
+import { DOMHelper } from "../../../testing/dom-helper";
 
-describe("CustomerListComponent", () => {
-  let component: CustomerListComponent;
-  let fixture: ComponentFixture<CustomerListComponent>;
-  let dh: DOMHelper<CustomerListComponent>;
-  let customerServiceMock: any;
+import { EntriesListComponent } from "./entries-list.component";
+
+describe("EntriesListComponent", () => {
+  let component: EntriesListComponent;
+  let fixture: ComponentFixture<EntriesListComponent>;
+  let dh: DOMHelper<EntriesListComponent>;
   let router: Router;
-  const customersListMock: CustomerDto[] = [
+  let entriesServiceMock: any;
+  const entriesListMock: EntriesDto[] = [
     {
+      idEntry: 1,
       idCustomer: 1,
-      firstName: "One Name",
-      lastName: "last Name",
-      cellPhone: "00019796313",
+      idType: 1,
+      dateInco: new Date("2020-09-17"),
+      dateEE: new Date("2020-09-20"),
+      priority: "Normal",
     },
     {
-      idCustomer: 2,
-      firstName: "Two Name",
-      lastName: "last Name",
-      cellPhone: "25632225",
-    },
-    {
+      idEntry: 2,
       idCustomer: 3,
-      firstName: "Tree Name",
-      lastName: "last Name",
-      cellPhone: "9873354",
+      idType: 1,
+      dateInco: new Date("2020-09-17"),
+      dateEE: new Date("2020-09-20"),
+      priority: "Alta",
+    },
+    {
+      idEntry: 3,
+      idCustomer: 2,
+      idType: 1,
+      dateInco: new Date("2020-09-17"),
+      dateEE: new Date("2020-09-20"),
+      priority: "Normal",
     },
   ];
 
-  beforeEach(async () => {
-    customerServiceMock = jasmine.createSpyObj("CustomerService", [
+  beforeEach(async(() => {
+    entriesServiceMock = jasmine.createSpyObj(EntriesService, [
       "getAll",
-      "subscribe",
       "delete",
     ]);
-    customerServiceMock.getAll.and.returnValue(of(customersListMock));
-    await TestBed.configureTestingModule({
-      imports: [SharedModule, BrowserAnimationsModule, RouterTestingModule],
-      declarations: [CustomerListComponent],
-      providers: [{ provide: CustomerService, useValue: customerServiceMock }],
+    entriesServiceMock.getAll.and.returnValue(of(entriesListMock));
+    TestBed.configureTestingModule({
+      declarations: [EntriesListComponent],
+      imports: [RouterTestingModule, SharedModule, BrowserAnimationsModule],
+      providers: [{ provide: EntriesService, useValue: entriesServiceMock }],
     }).compileComponents();
-  });
+  }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(CustomerListComponent);
+    fixture = TestBed.createComponent(EntriesListComponent);
     component = fixture.componentInstance;
     dh = new DOMHelper(fixture);
     router = TestBed.inject(Router);
@@ -63,7 +69,7 @@ describe("CustomerListComponent", () => {
   });
   it("should have a mat-card-title", () => {
     const title = dh.singleText("mat-card-title");
-    expect(title).toContain("Customers");
+    expect(title).toContain("Entries");
   });
   it("should have a mat-spinner", () => {
     const spinner = dh.count("mat-spinner");
@@ -73,9 +79,9 @@ describe("CustomerListComponent", () => {
     const btnCreate = dh.count("button");
     expect(btnCreate).toBeGreaterThan(1);
   });
-  it("should have a button with the text 'Add Customer'", () => {
+  it("should have a button with the text 'Add Entry'", () => {
     const btnCreate = dh.singleText("button");
-    expect(btnCreate).toBe(" Add Customer ");
+    expect(btnCreate).toBe(" Add Entry ");
   });
   it("should have a filter input", () => {
     const input = dh.count("input");
@@ -85,49 +91,49 @@ describe("CustomerListComponent", () => {
     const table = dh.singleText("table");
     expect(table).toBeDefined();
   });
-  it("should have a table with five colum", () => {
+  it("should have a table with seven colum", () => {
     const table = dh.findAll("table");
     const column = table[0].nativeElement.tHead.rows[0];
     const cells = column.cells.length;
-    expect(cells).toBe(5);
+    expect(cells).toBe(7);
   });
-  it("should call customerService getAll method", () => {
-    expect(customerServiceMock.getAll).toHaveBeenCalledTimes(1);
+  it("should call entriesService getAll method", () => {
+    expect(entriesServiceMock.getAll).toHaveBeenCalledTimes(1);
   });
-  it("should list at least 3 customers", () => {
+  it("should list at least 3 entries", () => {
     const list = dh.findAll("table");
     const rows = list[0].nativeElement.tBodies[0].rows.length;
-    expect(rows).toBe(customersListMock.length);
+    expect(rows).toBe(entriesListMock.length);
   });
-  it("should navigate to CustumerForm", async () => {
+  it("should navigate to EntriesForm", async () => {
     spyOn(router, "navigateByUrl");
-    dh.clickButton(" Add Customer ");
+    dh.clickButton(" Add Entry ");
     fixture.detectChanges();
     await fixture.whenStable().then(() => {
       expect(router.navigateByUrl).toHaveBeenCalledWith(
-        router.createUrlTree(["/customer/create"]),
+        router.createUrlTree(["/entries/create"]),
         { skipLocationChange: false, replaceUrl: false, state: undefined }
       );
     });
   });
-  it("should have an update button for each item", () => {
+  it("should have a update button for each item", () => {
     const list = dh.findAll("table");
     const rows = list[0].nativeElement.tBodies[0].rows.length;
     const btns = dh.countText("mat-icon", "edit");
     expect(btns).toBe(rows);
   });
-  it("should navigate to CustomForms in update mode", async () => {
+  it("should navigate to EntriesForms in update mode", async () => {
     spyOn(router, "navigateByUrl");
     const listItem = await fixture.nativeElement.querySelector("table");
-    await listItem.rows[1].cells[4].children[0].click();
+    await listItem.rows[1].cells[6].children[0].click();
     await fixture.whenStable().then(() => {
       expect(router.navigateByUrl).toHaveBeenCalledWith(
-        router.createUrlTree(["/customer/1"]),
+        router.createUrlTree(["/entries/1"]),
         { skipLocationChange: false }
       );
     });
   });
-  it("should have an delete button for each item", () => {
+  it("should have a delete button for each item", () => {
     const list = dh.findAll("table");
     const rows = list[0].nativeElement.tBodies[0].rows.length;
     const btns = dh.countText("mat-icon", "delete");
@@ -137,6 +143,6 @@ describe("CustomerListComponent", () => {
     const btns = dh.findAllWithText("mat-icon", "delete");
     const btn: HTMLButtonElement = btns[0].nativeNode;
     btn.click();
-    expect(customerServiceMock.delete).toHaveBeenCalledWith(1);
+    expect(entriesServiceMock.delete).toHaveBeenCalledWith(1);
   });
 });
